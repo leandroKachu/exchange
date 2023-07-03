@@ -24,9 +24,9 @@ O user de login:   o user `root`  com a senha passado na criacao da image
 bash-4.4# `mysql -U root -p`
 Enter password: mysecret
 
-No projeto contem um arquivo chamado `sql.sql` com as query necessaria para criar a tabela.
+No projeto contem um arquivo chamado `sql.sql` com as query necessaria para criar a tabela. "obs: não se esqueça de criar o databese antes de usar sql.sql"
 
-OBS: Validar o arquivo `.env` la contem todas os parametros de acesso.
+OBS: Validar o arquivo `.env` contém todas os parametros de acesso.
 
 
 
