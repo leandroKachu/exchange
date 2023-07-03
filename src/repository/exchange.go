@@ -34,8 +34,7 @@ func (repository Conversion) CreateConversion(amount, ExchangeRate, ConvertedVal
 			ValorConvertido: convertedValue,
 			SimboloMoeda:    currencySymbol,
 		}
-		fmt.Println(result, "meu result")
-		// Já existe um registro com os mesmos parâmetros, retorne o ID do registro
+
 		return result, nil
 	} else if err != sql.ErrNoRows {
 		// Ocorreu um erro ao executar a consulta

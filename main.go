@@ -10,8 +10,8 @@ import (
 
 // Main contem configuracoes basicas para execusao do sistema raiz.
 func main() {
-	config.InitBaseInfos()
-	r := route.RunRoutesInfo()
+	config.InitBaseConfig()
+	r := route.RunRoutesConfig()
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r))
 
 }

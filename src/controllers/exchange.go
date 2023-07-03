@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"conversion-currency/src/database"
+	errorsresponse "conversion-currency/src/errorsResponse"
 	"conversion-currency/src/repository"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -18,11 +19,15 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 	amount, _ := strconv.ParseFloat(params["amount"], 64)
 	fromCurrency := params["from"]
 	toCurrency := params["to"]
-
 	exchangeRate, _ := strconv.ParseFloat(params["rate"], 64)
+	currencySymbol := "$"
 
 	convertedValue := amount * exchangeRate
-	currencySymbol := "$"
+
+	if toCurrency == "0" || fromCurrency == "0" || exchangeRate == 0 {
+		errorsresponse.Error(w, http.StatusBadRequest, errors.New("need valid parameters"))
+		return
+	}
 
 	if toCurrency == "EUR" {
 		currencySymbol = "€"
@@ -30,10 +35,9 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 		currencySymbol = "฿"
 	}
 
-	db, erro := database.Connection()
-	if erro != nil {
-		// respostas.Erro(w, http.StatusInternalServerError, erro)
-		fmt.Println("deu error: ", erro)
+	db, err := database.Connection()
+	if err != nil {
+		errorsresponse.Error(w, http.StatusInternalServerError, err)
 		return
 	}
 	defer db.Close()
@@ -41,11 +45,13 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 	repository := repository.NewRepositoryConversion(db)
 	result, err := repository.CreateConversion(amount, exchangeRate, convertedValue, fromCurrency, currencySymbol, toCurrency)
 	if err != nil {
-		fmt.Println(err)
+		errorsresponse.Error(w, http.StatusInternalServerError, err)
+		return
 	}
 	jsonData, err := json.Marshal(result)
 	if err != nil {
-		fmt.Println(err)
+		errorsresponse.Error(w, http.StatusInternalServerError, err)
+		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonData)

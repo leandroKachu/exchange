@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func RunRoutesInfo() *mux.Router {
+func RunRoutesConfig() *mux.Router {
 	r := mux.NewRouter()
 
 	return routers.ConfigRoute(r)

@@ -14,9 +14,9 @@ var (
 	ConnectionString = ""
 )
 
-// InitBaseInfos:
+// InitBaseConfig:
 
-func InitBaseInfos() {
+func InitBaseConfig() {
 	var err error
 
 	if err = godotenv.Load(); err != nil {
