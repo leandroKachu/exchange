@@ -24,7 +24,7 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 
 	convertedValue := amount * exchangeRate
 
-	if toCurrency == "0" || fromCurrency == "0" || exchangeRate == 0 {
+	if amount == 0 || toCurrency == "0" || fromCurrency == "0" || exchangeRate == 0 {
 		errorsresponse.Error(w, http.StatusBadRequest, errors.New("need valid parameters"))
 		return
 	}
