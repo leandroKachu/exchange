@@ -12,6 +12,7 @@ import (
 var (
 	Port             = 0
 	ConnectionString = ""
+	ApiKey           = ""
 )
 
 // InitBaseConfig:
@@ -22,6 +23,8 @@ func InitBaseConfig() {
 	if err = godotenv.Load(); err != nil {
 		log.Fatal(err)
 	}
+
+	ApiKey = os.Getenv("APIKEY")
 
 	Port, err = strconv.Atoi(os.Getenv("API_PORT"))
 	if err != nil {
