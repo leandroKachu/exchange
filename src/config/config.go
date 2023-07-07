@@ -19,7 +19,6 @@ var (
 
 func InitBaseConfig() {
 	var err error
-
 	if err = godotenv.Load(); err != nil {
 		log.Fatal(err)
 	}

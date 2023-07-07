@@ -49,18 +49,18 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	repository := repository.NewRepositoryConversion(db)
-	dataDB, err := repository.CreateConversion(exchangeRate, convertedValue, fromCurrency, currencySymbol, toCurrency)
+	datatoDB, err := repository.CreateConversion(exchangeRate, convertedValue, fromCurrency, currencySymbol, toCurrency)
 
 	if err != nil {
 		errorsresponse.Error(w, http.StatusInternalServerError, err)
 		return
 	}
-	jsonData, err := json.Marshal(dataDB)
+	returndb, err := json.Marshal(datatoDB)
 
 	if err != nil {
 		errorsresponse.Error(w, http.StatusInternalServerError, err)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	w.Write(returndb)
 }
