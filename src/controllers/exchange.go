@@ -9,14 +9,15 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
 
 func Converter(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	fromCurrency := params["from"]
-	toCurrency := params["to"]
+	fromCurrency := strings.ToUpper(params["from"])
+	toCurrency := strings.ToUpper(params["to"])
 	exchangeRate, _ := strconv.ParseFloat(params["rate"], 64)
 
 	if toCurrency == "0" || fromCurrency == "0" || exchangeRate == 0 {

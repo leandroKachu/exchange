@@ -30,7 +30,6 @@ func InitBaseConfig() {
 	if err != nil {
 		Port = 9000
 	}
-	// Seguranca +/-
 	dbUser := os.Getenv("DB_USER")
 	dbPass := os.Getenv("DB_PASS")
 	dbName := os.Getenv("DB_NAME")
